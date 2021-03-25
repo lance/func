@@ -59,8 +59,8 @@ test-node:
 	cd templates/node/http && npm ci && npm test && rm -rf node_modules
 
 test-python:
-	cd templates/python/events && pip install -r requirements.txt && python test_func.py
-	cd templates/python/http && python test_func.py
+	cd templates/python/events && pip3 install -r requirements.txt && python3 test_func.py
+	cd templates/python/http && python3 test_func.py
 
 test-quarkus:
 	cd templates/quarkus/events && mvn test
