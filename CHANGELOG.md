@@ -1,6 +1,13 @@
 # Change Log
 
 <a name="unreleased"></a>
+## [0.14.0](https://www.github.com/lance/func/compare/v0.13.0...v0.14.0) (2021-03-31)
+
+
+### Features
+
+* this is just for testing ([73d7f2f](https://www.github.com/lance/func/commit/73d7f2ffaea5bb96569c6110b4ee0aa8ae14bcf2))
+
 ## [0.13.0](https://www.github.com/lance/func/compare/v0.12.0...v0.13.0) (2021-03-31)
 
 
