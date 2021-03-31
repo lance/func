@@ -1,6 +1,13 @@
 # Change Log
 
 <a name="unreleased"></a>
+## [0.13.0](https://www.github.com/lance/func/compare/v0.12.0...v0.13.0) (2021-03-31)
+
+
+### Features
+
+* this is a test branch ([0e6d371](https://www.github.com/lance/func/commit/0e6d371434f31b6ca7aee6be0bf30ff2359ebada))
+
 ## [0.12.0](https://www.github.com/boson-project/func/compare/v0.11.0...v0.12.0) (2021-03-30)
 
 
