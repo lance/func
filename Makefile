@@ -13,7 +13,6 @@ HASH := $(shell git rev-parse --short HEAD 2>/dev/null)
 VTAG := $(shell git tag --points-at HEAD)
 # a VERS environment variable takes precedence over git tags
 # due to issues with release-please-action tagging not working
-# as expected in CI
 VERS ?= $(shell [ -z $(VTAG) ] && echo 'tip' || echo $(VTAG) )
 
 TEMPLATE_DIRS=$(shell find templates -type d)
