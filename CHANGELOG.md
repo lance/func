@@ -1,6 +1,21 @@
 # Change Log
 
 <a name="unreleased"></a>
+## [0.20.0](https://www.github.com/lance/func/compare/v0.19.0...v0.20.0) (2021-11-17)
+
+
+### Features
+
+* add POD_NAME as an environment variable ([#660](https://www.github.com/lance/func/issues/660)) ([64473b7](https://www.github.com/lance/func/commit/64473b7197bb5a821b6724a8b914784891b1a828))
+* automatically start podman service ([#648](https://www.github.com/lance/func/issues/648)) ([bfdfb76](https://www.github.com/lance/func/commit/bfdfb760cff575146764f9b841a0cafcb31bcd58))
+* function creation timestamp ([#651](https://www.github.com/lance/func/issues/651)) ([1bf17ec](https://www.github.com/lance/func/commit/1bf17ec976130551da366e75b38f5169b3daed4e))
+* make SpringBoot template SpringNative by default ([#649](https://www.github.com/lance/func/issues/649)) ([c70a21e](https://www.github.com/lance/func/commit/c70a21e9a459d726a4118e177835082323698f83))
+
+
+### Bug Fixes
+
+* remove stray manifest.yaml files ([#628](https://www.github.com/lance/func/issues/628)) ([c810efc](https://www.github.com/lance/func/commit/c810efc7a4eb0d87f37f3acfafc46c1e4639fdc4))
+
 ## [0.19.0](https://www.github.com/knative-sandbox/kn-plugin-func/compare/v0.18.0...v0.19.0) (2021-11-03)
 
 
