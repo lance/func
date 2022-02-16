@@ -14,6 +14,7 @@ import (
 	"knative.dev/client/pkg/util"
 
 	fn "knative.dev/kn-plugin-func"
+	"knative.dev/kn-plugin-func/program"
 )
 
 var exampleTemplate = template.Must(template.New("example").Parse(`
@@ -50,6 +51,9 @@ func NewRootCmd(config RootCommandConfig) (*cobra.Command, error) {
 		Long: `Serverless Functions
 
 Create, build and deploy Functions in serverless containers for multiple runtimes on Knative`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return program.NewProgram()
+		},
 	}
 
 	root.Example, err = replaceNameInTemplate(config.Name, "example")

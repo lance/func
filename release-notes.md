@@ -1,0 +1,213 @@
+## Changes by Kind
+
+### Chore
+
+- Bump Node.js builder image to the latest paketo builder, removing a non-fatal warning that was issued at function startup. (#826, @lance)
+- Update boson builder images to most recent versions (#810, @matejvasek)
+
+### Enhancement
+
+- Adds the --build flag for 'func deploy' to the shell completions (#802, @matejvasek)
+
+### Bug or Regression
+
+- Fix a bug where interactive prompt defaults were not being used (#821, @lkingland)
+- Fixes a bug during func create when confirm option is used with the go language runtime (#815, @senthilnathan)
+- Fixes a bug where the invoke and describe commands could fail if Knative Eventing is not installed on the cluster. (#823, @lance)
+
+## Dependencies
+
+### Added
+- code.gitea.io/sdk/gitea: v0.14.0
+- contrib.go.opencensus.io/exporter/stackdriver: v0.13.5
+- git.apache.org/thrift.git: v0.12.0
+- git.maze.io/go/duration: faac084
+- github.com/DATA-DOG/go-sqlmock: [v1.3.3](https://github.com/DATA-DOG/go-sqlmock/tree/v1.3.3)
+- github.com/DataDog/zstd: [v1.4.1](https://github.com/DataDog/zstd/tree/v1.4.1)
+- github.com/GoogleCloudPlatform/cloud-builders/gcs-fetcher: [308b93a](https://github.com/GoogleCloudPlatform/cloud-builders/gcs-fetcher/tree/308b93a)
+- github.com/Knetic/govaluate: [9aa4983](https://github.com/Knetic/govaluate/tree/9aa4983)
+- github.com/PuerkitoBio/goquery: [v1.5.1](https://github.com/PuerkitoBio/goquery/tree/v1.5.1)
+- github.com/VividCortex/gohistogram: [v1.0.0](https://github.com/VividCortex/gohistogram/tree/v1.0.0)
+- github.com/afex/hystrix-go: [fa1af6a](https://github.com/afex/hystrix-go/tree/fa1af6a)
+- github.com/andybalholm/cascadia: [v1.1.0](https://github.com/andybalholm/cascadia/tree/v1.1.0)
+- github.com/antlr/antlr4: [621b933](https://github.com/antlr/antlr4/tree/621b933)
+- github.com/apache/thrift: [v0.13.0](https://github.com/apache/thrift/tree/v0.13.0)
+- github.com/aryann/difflib: [e206f87](https://github.com/aryann/difflib/tree/e206f87)
+- github.com/aws/aws-lambda-go: [v1.13.3](https://github.com/aws/aws-lambda-go/tree/v1.13.3)
+- github.com/aws/aws-sdk-go-v2: [v0.18.0](https://github.com/aws/aws-sdk-go-v2/tree/v0.18.0)
+- github.com/bluekeyes/go-gitdiff: [v0.4.0](https://github.com/bluekeyes/go-gitdiff/tree/v0.4.0)
+- github.com/casbin/casbin/v2: [v2.1.2](https://github.com/casbin/casbin/v2/tree/v2.1.2)
+- github.com/cenkalti/backoff: [v2.2.1+incompatible](https://github.com/cenkalti/backoff/tree/v2.2.1)
+- github.com/clbanning/x2j: [8252494](https://github.com/clbanning/x2j/tree/8252494)
+- github.com/cockroachdb/apd: [v1.1.0](https://github.com/cockroachdb/apd/tree/v1.1.0)
+- github.com/codahale/hdrhistogram: [3a0bb77](https://github.com/codahale/hdrhistogram/tree/3a0bb77)
+- github.com/denisenkom/go-mssqldb: [06a60b6](https://github.com/denisenkom/go-mssqldb/tree/06a60b6)
+- github.com/dimfeld/httppath: [ee938bf](https://github.com/dimfeld/httppath/tree/ee938bf)
+- github.com/dimfeld/httptreemux/v5: [v5.3.0](https://github.com/dimfeld/httptreemux/v5/tree/v5.3.0)
+- github.com/edsrzf/mmap-go: [v1.0.0](https://github.com/edsrzf/mmap-go/tree/v1.0.0)
+- github.com/franela/goblin: [c9ffbef](https://github.com/franela/goblin/tree/c9ffbef)
+- github.com/franela/goreq: [bcd34c9](https://github.com/franela/goreq/tree/bcd34c9)
+- github.com/gdamore/tcell: [v1.2.0](https://github.com/gdamore/tcell/tree/v1.2.0)
+- github.com/getkin/kin-openapi: [v0.53.0](https://github.com/getkin/kin-openapi/tree/v0.53.0)
+- github.com/go-gormigrate/gormigrate/v2: [v2.0.0](https://github.com/go-gormigrate/gormigrate/v2/tree/v2.0.0)
+- github.com/go-sql-driver/mysql: [v1.5.0](https://github.com/go-sql-driver/mysql/tree/v1.5.0)
+- github.com/go-testfixtures/testfixtures/v3: [v3.2.0](https://github.com/go-testfixtures/testfixtures/v3/tree/v3.2.0)
+- github.com/gobuffalo/attrs: [a9411de](https://github.com/gobuffalo/attrs/tree/a9411de)
+- github.com/gobuffalo/depgen: [v0.1.0](https://github.com/gobuffalo/depgen/tree/v0.1.0)
+- github.com/gobuffalo/envy: [v1.7.0](https://github.com/gobuffalo/envy/tree/v1.7.0)
+- github.com/gobuffalo/genny: [v0.1.1](https://github.com/gobuffalo/genny/tree/v0.1.1)
+- github.com/gobuffalo/gitgen: [cc08618](https://github.com/gobuffalo/gitgen/tree/cc08618)
+- github.com/gobuffalo/gogen: [v0.1.1](https://github.com/gobuffalo/gogen/tree/v0.1.1)
+- github.com/gobuffalo/logger: [86e12af](https://github.com/gobuffalo/logger/tree/86e12af)
+- github.com/gobuffalo/mapi: [v1.0.2](https://github.com/gobuffalo/mapi/tree/v1.0.2)
+- github.com/gobuffalo/packd: [v0.1.0](https://github.com/gobuffalo/packd/tree/v0.1.0)
+- github.com/gobuffalo/packr/v2: [v2.2.0](https://github.com/gobuffalo/packr/v2/tree/v2.2.0)
+- github.com/gobuffalo/syncx: [33c2958](https://github.com/gobuffalo/syncx/tree/33c2958)
+- github.com/gofrs/uuid: [v3.2.0+incompatible](https://github.com/gofrs/uuid/tree/v3.2.0)
+- github.com/golang-jwt/jwt: [v3.2.2+incompatible](https://github.com/golang-jwt/jwt/tree/v3.2.2)
+- github.com/golang-sql/civil: [cb61b32](https://github.com/golang-sql/civil/tree/cb61b32)
+- github.com/google/cel-go: [v0.7.3](https://github.com/google/cel-go/tree/v0.7.3)
+- github.com/google/cel-spec: [v0.5.0](https://github.com/google/cel-spec/tree/v0.5.0)
+- github.com/google/go-github/v31: [v31.0.0](https://github.com/google/go-github/v31/tree/v31.0.0)
+- github.com/google/go-github/v38: [v38.1.0](https://github.com/google/go-github/v38/tree/v38.1.0)
+- github.com/google/go-licenses: [f29a4c6](https://github.com/google/go-licenses/tree/f29a4c6)
+- github.com/google/gxui: [f85e0a9](https://github.com/google/gxui/tree/f85e0a9)
+- github.com/googleapis/gax-go: [v2.0.2+incompatible](https://github.com/googleapis/gax-go/tree/v2.0.2)
+- github.com/h2non/gock: [v1.0.9](https://github.com/h2non/gock/tree/v1.0.9)
+- github.com/h2non/parth: [b4df798](https://github.com/h2non/parth/tree/b4df798)
+- github.com/hako/durafmt: [3f39dc1](https://github.com/hako/durafmt/tree/3f39dc1)
+- github.com/hashicorp/go-version: [v1.3.0](https://github.com/hashicorp/go-version/tree/v1.3.0)
+- github.com/hudl/fargo: [v1.3.0](https://github.com/hudl/fargo/tree/v1.3.0)
+- github.com/ikawaha/goahttpcheck: [v1.3.1](https://github.com/ikawaha/goahttpcheck/tree/v1.3.1)
+- github.com/ikawaha/httpcheck: [v1.2.0](https://github.com/ikawaha/httpcheck/tree/v1.2.0)
+- github.com/influxdata/influxdb1-client: [8bf82d3](https://github.com/influxdata/influxdb1-client/tree/8bf82d3)
+- github.com/jackc/chunkreader/v2: [v2.0.1](https://github.com/jackc/chunkreader/v2/tree/v2.0.1)
+- github.com/jackc/chunkreader: [v1.0.0](https://github.com/jackc/chunkreader/tree/v1.0.0)
+- github.com/jackc/pgconn: [v1.7.0](https://github.com/jackc/pgconn/tree/v1.7.0)
+- github.com/jackc/pgio: [v1.0.0](https://github.com/jackc/pgio/tree/v1.0.0)
+- github.com/jackc/pgmock: [13a1b77](https://github.com/jackc/pgmock/tree/13a1b77)
+- github.com/jackc/pgpassfile: [v1.0.0](https://github.com/jackc/pgpassfile/tree/v1.0.0)
+- github.com/jackc/pgproto3/v2: [v2.0.5](https://github.com/jackc/pgproto3/v2/tree/v2.0.5)
+- github.com/jackc/pgproto3: [v1.1.0](https://github.com/jackc/pgproto3/tree/v1.1.0)
+- github.com/jackc/pgservicefile: [2b9c447](https://github.com/jackc/pgservicefile/tree/2b9c447)
+- github.com/jackc/pgtype: [v1.5.0](https://github.com/jackc/pgtype/tree/v1.5.0)
+- github.com/jackc/pgx/v4: [v4.9.0](https://github.com/jackc/pgx/v4/tree/v4.9.0)
+- github.com/jackc/puddle: [v1.1.2](https://github.com/jackc/puddle/tree/v1.1.2)
+- github.com/jcmturner/gofork: [v1.0.0](https://github.com/jcmturner/gofork/tree/v1.0.0)
+- github.com/jenkins-x/go-scm: [v1.10.10](https://github.com/jenkins-x/go-scm/tree/v1.10.10)
+- github.com/jinzhu/inflection: [v1.0.0](https://github.com/jinzhu/inflection/tree/v1.0.0)
+- github.com/jinzhu/now: [v1.1.1](https://github.com/jinzhu/now/tree/v1.1.1)
+- github.com/joefitzgerald/rainbow-reporter: [v0.1.0](https://github.com/joefitzgerald/rainbow-reporter/tree/v0.1.0)
+- github.com/joho/godotenv: [v1.3.0](https://github.com/joho/godotenv/tree/v1.3.0)
+- github.com/karrick/godirwalk: [v1.10.3](https://github.com/karrick/godirwalk/tree/v1.10.3)
+- github.com/ktr0731/go-fuzzyfinder: [v0.2.0](https://github.com/ktr0731/go-fuzzyfinder/tree/v0.2.0)
+- github.com/lib/pq: [v1.3.0](https://github.com/lib/pq/tree/v1.3.0)
+- github.com/lightstep/lightstep-tracer-common/golang/gogo: [bc2310a](https://github.com/lightstep/lightstep-tracer-common/golang/gogo/tree/bc2310a)
+- github.com/lightstep/lightstep-tracer-go: [v0.18.1](https://github.com/lightstep/lightstep-tracer-go/tree/v0.18.1)
+- github.com/manveru/faker: [9fbc68a](https://github.com/manveru/faker/tree/9fbc68a)
+- github.com/manveru/gobdd: [f1a17fd](https://github.com/manveru/gobdd/tree/f1a17fd)
+- github.com/markbates/oncer: [bf2de49](https://github.com/markbates/oncer/tree/bf2de49)
+- github.com/markbates/safe: [v1.0.1](https://github.com/markbates/safe/tree/v1.0.1)
+- github.com/mattn/go-sqlite3: [v2.0.2+incompatible](https://github.com/mattn/go-sqlite3/tree/v2.0.2)
+- github.com/maxbrunsfeld/counterfeiter/v6: [v6.2.2](https://github.com/maxbrunsfeld/counterfeiter/v6/tree/v6.2.2)
+- github.com/mitchellh/copystructure: [v1.0.0](https://github.com/mitchellh/copystructure/tree/v1.0.0)
+- github.com/mitchellh/reflectwalk: [v1.0.0](https://github.com/mitchellh/reflectwalk/tree/v1.0.0)
+- github.com/montanaflynn/stats: [1bf9dbc](https://github.com/montanaflynn/stats/tree/1bf9dbc)
+- github.com/nats-io/jwt: [v0.3.2](https://github.com/nats-io/jwt/tree/v0.3.2)
+- github.com/nats-io/nats-server/v2: [v2.1.2](https://github.com/nats-io/nats-server/v2/tree/v2.1.2)
+- github.com/nats-io/nats.go: [v1.9.1](https://github.com/nats-io/nats.go/tree/v1.9.1)
+- github.com/nats-io/nkeys: [v0.1.3](https://github.com/nats-io/nkeys/tree/v0.1.3)
+- github.com/nats-io/nuid: [v1.0.1](https://github.com/nats-io/nuid/tree/v1.0.1)
+- github.com/nbio/st: [e9e8d98](https://github.com/nbio/st/tree/e9e8d98)
+- github.com/oklog/oklog: [v0.3.2](https://github.com/oklog/oklog/tree/v0.3.2)
+- github.com/oklog/run: [v1.0.0](https://github.com/oklog/run/tree/v1.0.0)
+- github.com/op/go-logging: [970db52](https://github.com/op/go-logging/tree/970db52)
+- github.com/opentracing-contrib/go-observer: [a52f234](https://github.com/opentracing-contrib/go-observer/tree/a52f234)
+- github.com/opentracing/basictracer-go: [v1.0.0](https://github.com/opentracing/basictracer-go/tree/v1.0.0)
+- github.com/opentracing/opentracing-go: [v1.1.0](https://github.com/opentracing/opentracing-go/tree/v1.1.0)
+- github.com/openzipkin-contrib/zipkin-go-opentracing: [v0.4.5](https://github.com/openzipkin-contrib/zipkin-go-opentracing/tree/v0.4.5)
+- github.com/otiai10/copy: [v1.2.0](https://github.com/otiai10/copy/tree/v1.2.0)
+- github.com/otiai10/curr: [v1.0.0](https://github.com/otiai10/curr/tree/v1.0.0)
+- github.com/otiai10/mint: [v1.3.1](https://github.com/otiai10/mint/tree/v1.3.1)
+- github.com/pact-foundation/pact-go: [v1.0.4](https://github.com/pact-foundation/pact-go/tree/v1.0.4)
+- github.com/performancecopilot/speed: [v3.0.0+incompatible](https://github.com/performancecopilot/speed/tree/v3.0.0)
+- github.com/remyoudompheng/bigfft: [52369c6](https://github.com/remyoudompheng/bigfft/tree/52369c6)
+- github.com/rs/xid: [v1.2.1](https://github.com/rs/xid/tree/v1.2.1)
+- github.com/rs/zerolog: [v1.17.2](https://github.com/rs/zerolog/tree/v1.17.2)
+- github.com/samuel/go-zookeeper: [2cc03de](https://github.com/samuel/go-zookeeper/tree/2cc03de)
+- github.com/shopspring/decimal: [02e2044](https://github.com/shopspring/decimal/tree/02e2044)
+- github.com/shurcooL/githubv4: [4ba0370](https://github.com/shurcooL/githubv4/tree/4ba0370)
+- github.com/shurcooL/graphql: [d48a9a7](https://github.com/shurcooL/graphql/tree/d48a9a7)
+- github.com/sony/gobreaker: [v0.4.1](https://github.com/sony/gobreaker/tree/v0.4.1)
+- github.com/streadway/handy: [d5acb31](https://github.com/streadway/handy/tree/d5acb31)
+- github.com/tektoncd/cli: [v0.21.0](https://github.com/tektoncd/cli/tree/v0.21.0)
+- github.com/tektoncd/hub/api: [aa58969](https://github.com/tektoncd/hub/api/tree/aa58969)
+- github.com/tektoncd/pipeline: [v0.29.0](https://github.com/tektoncd/pipeline/tree/v0.29.0)
+- github.com/tektoncd/plumbing: [c7cc43d](https://github.com/tektoncd/plumbing/tree/c7cc43d)
+- github.com/tektoncd/triggers: [v0.16.0](https://github.com/tektoncd/triggers/tree/v0.16.0)
+- github.com/tidwall/gjson: [v1.6.5](https://github.com/tidwall/gjson/tree/v1.6.5)
+- github.com/tidwall/match: [v1.0.3](https://github.com/tidwall/match/tree/v1.0.3)
+- github.com/tidwall/sjson: [v1.0.4](https://github.com/tidwall/sjson/tree/v1.0.4)
+- github.com/whilp/git-urls: [v1.0.0](https://github.com/whilp/git-urls/tree/v1.0.0)
+- github.com/xdg/scram: [7eeb566](https://github.com/xdg/scram/tree/7eeb566)
+- github.com/xdg/stringprep: [v1.0.0](https://github.com/xdg/stringprep/tree/v1.0.0)
+- github.com/zach-klippenstein/goregen: [795b5e3](https://github.com/zach-klippenstein/goregen/tree/795b5e3)
+- github.com/zenazn/goji: [v0.9.0](https://github.com/zenazn/goji/tree/v0.9.0)
+- go.uber.org/tools: 2cfd321
+- goa.design/goa/v3: v3.3.1
+- goa.design/plugins/v3: v3.1.3
+- gopkg.in/evanphx/json-patch.v4: v4.9.0
+- gopkg.in/h2non/gentleman.v1: v1.0.4
+- gopkg.in/h2non/gock.v1: v1.0.16
+- gopkg.in/inconshreveable/log15.v2: 67afb5e
+- gopkg.in/jcmturner/aescts.v1: v1.0.1
+- gopkg.in/jcmturner/dnsutils.v1: v1.0.1
+- gopkg.in/jcmturner/gokrb5.v7: v7.3.0
+- gopkg.in/jcmturner/rpc.v1: v1.1.0
+- gorm.io/driver/mysql: v1.0.1
+- gorm.io/driver/postgres: v1.0.2
+- gorm.io/driver/sqlite: v1.1.1
+- gorm.io/driver/sqlserver: v1.0.2
+- gorm.io/gorm: v1.20.7
+- modernc.org/cc: v1.0.0
+- modernc.org/golex: v1.0.0
+- modernc.org/mathutil: v1.0.0
+- modernc.org/strutil: v1.0.0
+- modernc.org/xc: v1.0.0
+- sourcegraph.com/sourcegraph/appdash: ebfcffb
+
+### Changed
+- github.com/Shopify/sarama: [v1.19.0 → v1.23.1](https://github.com/Shopify/sarama/compare/v1.19.0...v1.23.1)
+- github.com/asaskevich/govalidator: [f61b66f → 7a23bdc](https://github.com/asaskevich/govalidator/compare/f61b66f...7a23bdc)
+- github.com/coreos/go-systemd: [95778df → fd7a80b](https://github.com/coreos/go-systemd/compare/95778df...fd7a80b)
+- github.com/eapache/go-resiliency: [v1.1.0 → v1.2.0](https://github.com/eapache/go-resiliency/compare/v1.1.0...v1.2.0)
+- github.com/fatih/color: [v1.7.0 → v1.9.0](https://github.com/fatih/color/compare/v1.7.0...v1.9.0)
+- github.com/go-kit/kit: [v0.9.0 → v0.10.0](https://github.com/go-kit/kit/compare/v0.9.0...v0.10.0)
+- github.com/go-openapi/analysis: [v0.19.5 → v0.19.16](https://github.com/go-openapi/analysis/compare/v0.19.5...v0.19.16)
+- github.com/go-openapi/errors: [v0.19.2 → v0.19.9](https://github.com/go-openapi/errors/compare/v0.19.2...v0.19.9)
+- github.com/go-openapi/loads: [v0.19.4 → v0.20.2](https://github.com/go-openapi/loads/compare/v0.19.4...v0.20.2)
+- github.com/go-openapi/runtime: [v0.19.4 → v0.19.24](https://github.com/go-openapi/runtime/compare/v0.19.4...v0.19.24)
+- github.com/go-openapi/strfmt: [v0.19.5 → v0.20.0](https://github.com/go-openapi/strfmt/compare/v0.19.5...v0.20.0)
+- github.com/go-openapi/validate: [v0.19.8 → v0.20.1](https://github.com/go-openapi/validate/compare/v0.19.8...v0.20.1)
+- github.com/google/go-containerregistry/pkg/authn/k8schain: [ce35c99 → 0e8b581](https://github.com/google/go-containerregistry/pkg/authn/k8schain/compare/ce35c99...0e8b581)
+- github.com/gorilla/mux: [v1.7.4 → v1.8.0](https://github.com/gorilla/mux/compare/v1.7.4...v1.8.0)
+- github.com/hashicorp/consul/api: [v1.1.0 → v1.3.0](https://github.com/hashicorp/consul/api/compare/v1.1.0...v1.3.0)
+- github.com/hashicorp/consul/sdk: [v0.1.1 → v0.3.0](https://github.com/hashicorp/consul/sdk/compare/v0.1.1...v0.3.0)
+- github.com/hashicorp/go-multierror: [v1.1.0 → v1.1.1](https://github.com/hashicorp/go-multierror/compare/v1.1.0...v1.1.1)
+- github.com/jonboulle/clockwork: [v0.1.0 → 62fb9bc](https://github.com/jonboulle/clockwork/compare/v0.1.0...62fb9bc)
+- github.com/pierrec/lz4: [473cd7c → v2.2.6+incompatible](https://github.com/pierrec/lz4/compare/473cd7c...v2.2.6)
+- github.com/rcrowley/go-metrics: [3113b84 → 9beb055](https://github.com/rcrowley/go-metrics/compare/3113b84...9beb055)
+- github.com/sergi/go-diff: [v1.1.0 → v1.2.0](https://github.com/sergi/go-diff/compare/v1.1.0...v1.2.0)
+- github.com/streadway/amqp: [75d898a → edfb901](https://github.com/streadway/amqp/compare/75d898a...edfb901)
+- github.com/tidwall/pretty: [v1.0.0 → v1.0.2](https://github.com/tidwall/pretty/compare/v1.0.0...v1.0.2)
+- go.mongodb.org/mongo-driver: v1.1.2 → v1.4.6
+- go.uber.org/goleak: v1.1.10 → 6911603
+- go.uber.org/multierr: v1.6.0 → v1.7.0
+- go.uber.org/zap: v1.19.0 → v1.19.1
+- golang.org/x/mobile: d2bd2a2 → 597adff
+- gonum.org/v1/netlib: 8cb4219 → 7672324
+- gopkg.in/gcfg.v1: v1.2.0 → v1.2.3
+- honnef.co/go/tools: v0.0.1-2020.1.4 → v0.0.1-2020.1.5
+
+### Removed
+_Nothing has changed._

@@ -6,6 +6,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/AlecAivazis/survey/v2/terminal"
+	"github.com/charmbracelet/glamour"
 	"github.com/ory/viper"
 	"github.com/spf13/cobra"
 
@@ -19,18 +20,27 @@ func buildConfigToClientOptions(cfg buildConfig) ClientOptions {
 	}
 }
 
+func renderHelp() (string, error) {
+	help := `## Build a function project as a container image
+
+This command builds the function project in the current directory or in the directory specified by ` + "`--path`" + `. The result will be a container image that is pushed to a registry. The func.yaml file is read to determine the image name and registry.
+
+If the project has not already been built, either --registry or --image must be provided and the image name is stored in the configuration file.
+`
+	return glamour.Render(help, "dark")
+}
+
 func NewBuildCmd(newClient ClientFactory) *cobra.Command {
+	help, err := renderHelp()
+
+	if err != nil {
+		help = "Cannot render help text"
+	}
+
 	cmd := &cobra.Command{
 		Use:   "build",
 		Short: "Build a function project as a container image",
-		Long: `Build a function project as a container image
-
-This command builds the function project in the current directory or in the directory
-specified by --path. The result will be a container image that is pushed to a registry.
-The func.yaml file is read to determine the image name and registry. 
-If the project has not already been built, either --registry or --image must be provided 
-and the image name is stored in the configuration file.
-`,
+		Long:  help,
 		Example: `
 # Build from the local directory, using the given registry as target.
 # The full image name will be determined automatically based on the
