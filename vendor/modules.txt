@@ -182,6 +182,7 @@ github.com/charmbracelet/bubbles/list
 github.com/charmbracelet/bubbles/paginator
 github.com/charmbracelet/bubbles/spinner
 github.com/charmbracelet/bubbles/textinput
+github.com/charmbracelet/bubbles/viewport
 # github.com/charmbracelet/bubbletea v0.20.0
 ## explicit
 github.com/charmbracelet/bubbletea
