@@ -1,6 +1,8 @@
 package program
 
 import (
+	"fmt"
+
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -71,7 +73,9 @@ func (c subcommand) Init() tea.Cmd {
 }
 
 func (c subcommand) View() string {
-	if c.displayHelp {
+	fmt.Printf("Viewing %v %p\n", c.displayHelp, &c)
+	if c.displayHelp == true {
+		fmt.Println("HELP!")
 		return docStyle.Render(c.help.View())
 	}
 	return docStyle.Render(c.menu.View())
@@ -81,6 +85,7 @@ func (c subcommand) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 
 	case tea.KeyMsg:
+		fmt.Println("KeyMsg")
 		switch keypress := msg.String(); keypress {
 		case "m":
 			c.displayHelp = true
@@ -93,6 +98,7 @@ func (c subcommand) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	var cmd tea.Cmd
 	c.menu, cmd = c.menu.Update(msg)
+	fmt.Printf("%+v %p\n", c.displayHelp, &c)
 	return c, cmd
 }
 
