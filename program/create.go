@@ -1,16 +1,14 @@
 package program
 
 import (
-	"fmt"
-
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func newCreate() subcommand {
+func newCreate() Subcommand {
 	items := []list.Item{
-		menuItem{title: "Language", desc: "Select a language for your function"},
-		menuItem{title: "Template", desc: "Choose a template for your function"},
+		MenuItem{title: "Language", desc: "Select a language for your function"},
+		MenuItem{title: "Template", desc: "Choose a template for your function"},
 	}
 	help := NewHelp(`
 		NAME
@@ -53,18 +51,18 @@ func newCreate() subcommand {
 				`)
 	menu := list.New(items, list.NewDefaultDelegate(), 0, 0)
 	menu.Title = "✦ Create a new function project ✦"
-	return subcommand{
+	return Subcommand{
 		menu:        menu,
 		help:        help,
 		displayHelp: false,
 	}
 }
 
-func (c subcommand) Init() tea.Cmd {
+func (c Subcommand) Init() tea.Cmd {
 	var commands = []tea.Cmd{}
 	for _, i := range c.menu.Items() {
-		m := i.(menuItem).model
-		if m != nil {
+		m := i.(MenuItem).model
+		if isModel(m) {
 			commands = append(commands, m.Init())
 		}
 	}
@@ -72,33 +70,25 @@ func (c subcommand) Init() tea.Cmd {
 	return tea.Batch(commands...)
 }
 
-func (c subcommand) View() string {
-	fmt.Printf("Viewing %v %p\n", c.displayHelp, &c)
+func (c Subcommand) View() string {
 	if c.displayHelp == true {
-		fmt.Println("HELP!")
 		return docStyle.Render(c.help.View())
 	}
 	return docStyle.Render(c.menu.View())
 }
 
-func (c subcommand) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (c Subcommand) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 
 	case tea.KeyMsg:
-		fmt.Println("KeyMsg")
 		switch keypress := msg.String(); keypress {
 		case "m":
 			c.displayHelp = true
 		}
-
-	case tea.WindowSizeMsg:
-		top, right, bottom, left := docStyle.GetMargin()
-		c.menu.SetSize(msg.Width-left-right, msg.Height-top-bottom)
 	}
 
 	var cmd tea.Cmd
 	c.menu, cmd = c.menu.Update(msg)
-	fmt.Printf("%+v %p\n", c.displayHelp, &c)
 	return c, cmd
 }
 
