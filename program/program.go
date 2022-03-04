@@ -1,8 +1,7 @@
 package program
 
 import (
-	"fmt"
-
+	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/viewport"
 
 	"github.com/charmbracelet/bubbles/list"
@@ -28,50 +27,92 @@ func NewProgram() error {
 // The top-level model for all func commands, consisting of the command menu,
 // and a pointer to the currently active command
 type model struct {
-	viewport   viewport.Model
-	menu       list.Model // name and descriptive text for each func command
-	active     bool       // a hack that can be removed when all menu items have a model
-	quitting   bool       // a flag to indicate when the application is shutting down
-	ready      bool
-	subcommand Subcommand // model for the currently active subcommand
+	viewport   viewport.Model // the primary view window
+	menu       list.Model     // name and descriptive text for each func command
+	subcommand tea.Model      // model for the currently active subcommand
+	active     bool           // a flag to indicate that a subcommand is active
+	quitting   bool           // a flag to indicate when the application is shutting down
+	ready      bool           // signals initialization of view components is complete
 }
 
 type MenuItem struct {
 	title, desc string
-	model       Subcommand
+	model       tea.Model
 }
 
 func (i MenuItem) Title() string       { return i.title }
 func (i MenuItem) Description() string { return i.desc }
 func (i MenuItem) FilterValue() string { return i.title }
 
-// Subcommand is implemented by all commands, e.g. create, build, deploy
-type Subcommand struct {
-	menu        list.Model
-	help        tea.Model
-	displayHelp bool
+// subcommand is a simple placeholder model until all commands have
+// been implemented
+type subcommand struct {
+	name string
+}
+
+func (s subcommand) Init() tea.Cmd                       { return nil }
+func (s subcommand) Update(tea.Msg) (tea.Model, tea.Cmd) { return s, nil }
+func (s subcommand) View() string                        { return s.name + ": Not implemented" }
+
+func newSubcommand(name string) tea.Model {
+	return subcommand{name: name}
 }
 
 // initialModel returns the initial state of the program - a list of all possible commands
 // written in user friendly language, with nothing selected.
 func initialModel() (m model) {
 	items := []list.Item{
-		MenuItem{title: "Create", desc: "Create a new function project from a template", model: newCreate()},
-		MenuItem{title: "Build", desc: "Turn an existing function project into a runnable container", model: Subcommand{}},
-		MenuItem{title: "Configure", desc: "View and update options for an existing function project", model: Subcommand{}},
-		MenuItem{title: "Deploy", desc: "Run an existing function project on a cluster", model: Subcommand{}},
-		MenuItem{title: "Undeploy", desc: "Remove an existing function from a cluster", model: Subcommand{}},
-		MenuItem{title: "Info", desc: "See information about an existing function", model: Subcommand{}},
-		MenuItem{title: "List", desc: "Get a list of all functions deployed on the cluster", model: Subcommand{}},
-		MenuItem{title: "Run", desc: "Run an existing function in a local container", model: Subcommand{}},
-		MenuItem{title: "Invoke", desc: "Invoke a running function, either locally or on a cluster", model: Subcommand{}},
-		MenuItem{title: "Templates", desc: "Install and update reusable function templates", model: Subcommand{}},
+		MenuItem{
+			title: "Create",
+			desc:  "Create a new function project from a template",
+			model: newCreate()},
+		MenuItem{
+			title: "Build",
+			desc:  "Turn an existing function project into a runnable container",
+			model: newSubcommand("Build")},
+		MenuItem{
+			title: "Configure",
+			desc:  "View and update options for an existing function project",
+			model: newSubcommand("Configure")},
+		MenuItem{
+			title: "Deploy",
+			desc:  "Run an existing function project on a cluster",
+			model: newSubcommand("Deploy")},
+		MenuItem{
+			title: "Undeploy",
+			desc:  "Remove an existing function from a cluster",
+			model: newSubcommand("Undeploy")},
+		MenuItem{
+			title: "Info", desc: "See information about an existing function",
+			model: newSubcommand("Info")},
+		MenuItem{
+			title: "List",
+			desc:  "Get a list of all functions deployed on the cluster",
+			model: newSubcommand("List")},
+		MenuItem{
+			title: "Run",
+			desc:  "Run an existing function in a local container",
+			model: newSubcommand("Run")},
+		MenuItem{
+			title: "Invoke",
+			desc:  "Invoke a running function, either locally or on a cluster",
+			model: newSubcommand("Invoke")},
+		MenuItem{
+			title: "Templates",
+			desc:  "Install and update reusable function templates",
+			model: newSubcommand("Templates")},
 	}
 
 	m = model{
 		menu:     list.New(items, list.NewDefaultDelegate(), 0, 0),
 		active:   false,
 		quitting: false,
+	}
+	m.menu.AdditionalShortHelpKeys = func() []key.Binding {
+		return []key.Binding{key.NewBinding(
+			key.WithKeys("b"),
+			key.WithHelp("b", "back"),
+		)}
 	}
 	m.menu.Title = "⚡ Knative Functions ⚡"
 	return
@@ -84,14 +125,12 @@ func (m model) Init() tea.Cmd {
 	var cmds = []tea.Cmd{}
 	for _, i := range m.menu.Items() {
 		m := i.(MenuItem).model
-		if isModel(m) {
-			cmds = append(cmds, m.Init())
-		}
+		cmds = append(cmds, m.Init())
 	}
 	return tea.Batch(cmds...)
 }
 
-// Update allows for changes in the program state based on user behavior
+// Update handles changes in the program state
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var (
 		cmd  tea.Cmd
@@ -117,9 +156,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 
 	case tea.WindowSizeMsg:
-		top, right, bottom, left := docStyle.GetMargin()
-		w := msg.Width - left - right
-		h := msg.Height - top - bottom
+		w, h := windowSize(msg)
 
 		if !m.ready {
 			m.viewport = viewport.Model{Width: w, Height: h}
@@ -129,15 +166,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.menu.SetSize(w, h)
 		m.viewport.Width = w
 		m.viewport.Height = h
-		m.viewport.SetContent(m.menu.View())
 	}
 
-	if m.active && isModel(m.subcommand) {
+	if m.active {
 		// A subcommand is active, send the received
 		// message to it and update its model
 		var mm tea.Model
 		mm, cmd = m.subcommand.Update(msg)
-		m.subcommand = mm.(Subcommand)
+		m.subcommand = mm
 		cmds = append(cmds, cmd)
 	} else {
 		// No subcommand is active, just update the menu
@@ -150,6 +186,13 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, tea.Batch(cmds...)
 }
 
+func windowSize(msg tea.WindowSizeMsg) (w, h int) {
+	top, right, bottom, left := docStyle.GetMargin()
+	w = msg.Width - left - right
+	h = msg.Height - top - bottom
+	return
+}
+
 // View builds and returns a string based on the state of the program model
 // If there is a current command, it delegates the view to the sub-model
 func (m model) View() string {
@@ -157,27 +200,13 @@ func (m model) View() string {
 		return "\n👋 Bye!"
 	}
 	if m.active {
-		if isModel(m.subcommand) {
-			// A command has been selected, render the sub-model's view
-			m.viewport.SetContent(m.subcommand.View())
-		} else {
-			// There is a selected command, but it doesn't have the program TUI implemented yet
-			m.viewport.SetContent(fmt.Sprintf("Sorry, %s isn't available yet.", m.selectedCommand()))
-		}
+		// A command has been selected, render the sub-model's view
+		m.viewport.SetContent(m.subcommand.View())
 	} else {
 		// No subcommand is selected, just show the menu
 		m.viewport.SetContent(m.menu.View())
 	}
 	return docStyle.Render(m.viewport.View())
-}
-
-// isModel is a convenience function to determine if an interface
-// implements the bubbletea Model interface. Currently only used
-// to determine if a subcommand has been implemented yet.
-func isModel(i interface{}) bool {
-	_, ok := i.(tea.Model)
-	fmt.Printf("\n\n\nModel %v, %+v\n\n\n", ok, i)
-	return ok
 }
 
 // selectedCommand returns the command for the currently selected menu

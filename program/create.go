@@ -5,90 +5,104 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-func newCreate() Subcommand {
+type create struct {
+	menu        list.Model
+	help        tea.Model
+	displayHelp bool
+	ready       bool
+}
+
+func newCreate() tea.Model {
 	items := []list.Item{
 		MenuItem{title: "Language", desc: "Select a language for your function"},
 		MenuItem{title: "Template", desc: "Choose a template for your function"},
 	}
 	help := NewHelp(`
-		NAME
-			{{.Name}} create - Create a Function project.
-		
-		SYNOPSIS
-			{{.Name}} create [-l|--language] [-t|--template] [-r|--repository]
-									[-c|--confirm]  [-v|--verbose]  [path]
-		
-		DESCRIPTION
-			Creates a new Function project.
-		
-				$ {{.Name}} create -l node -t http
-		
-			Creates a Function in the current directory '.' which is written in the
-			language/runtime 'node' and handles HTTP events.
-		
-			If [path] is provided, the Function is initialized at that path, creating
-			the path if necessary.
-		
-			To complete this command interactivly, use --confirm (-c):
-				$ {{.Name}} create -c
-		
-			Available Language Runtimes and Templates:
-		{{ .Options | indent 2 " " | indent 1 "\t" }}
-		
-			To install more language runtimes and their templates see '{{.Name}} repository'.
-		
-		EXAMPLES
-			o Create a Node.js Function (the default language runtime) in the current
-				directory (the default path) which handles http events (the default
-				template).
-				$ {{.Name}} create
-		
-			o Create a Node.js Function in the directory 'myfunc'.
-				$ {{.Name}} create myfunc
-		
-			o Create a Go Function which handles CloudEvents in ./myfunc.
-				$ {{.Name}} create -l go -t cloudevents myfunc
-				`)
+# NAME
+	func create - Create a Function project.
+
+# SYNOPSIS
+	func create [-l|--language] [-t|--template] [-r|--repository]
+							[-c|--confirm]  [-v|--verbose]  [path]
+
+# DESCRIPTION
+	Creates a new Function project.
+
+		$ func create -l node -t http
+
+	Creates a Function in the current directory '.' which is written in the
+	language/runtime 'node' and handles HTTP events.
+
+	If [path] is provided, the Function is initialized at that path, creating
+	the path if necessary.
+
+	To complete this command interactivly, use --confirm (-c):
+		$ func create -c
+
+	Available Language Runtimes and Templates:
+{{ .Options | indent 2 " " | indent 1 "\t" }}
+
+	To install more language runtimes and their templates see '{{.Name}} repository'.
+
+EXAMPLES
+	o Create a Node.js Function (the default language runtime) in the current
+		directory (the default path) which handles http events (the default
+		template).
+		$ {{.Name}} create
+
+	o Create a Node.js Function in the directory 'myfunc'.
+		$ {{.Name}} create myfunc
+
+	o Create a Go Function which handles CloudEvents in ./myfunc.
+		$ {{.Name}} create -l go -t cloudevents myfunc
+		`)
 	menu := list.New(items, list.NewDefaultDelegate(), 0, 0)
 	menu.Title = "✦ Create a new function project ✦"
-	return Subcommand{
+	return create{
 		menu:        menu,
 		help:        help,
+		ready:       false,
 		displayHelp: false,
 	}
 }
 
-func (c Subcommand) Init() tea.Cmd {
+func (c create) Init() tea.Cmd {
 	var commands = []tea.Cmd{}
-	for _, i := range c.menu.Items() {
-		m := i.(MenuItem).model
-		if isModel(m) {
-			commands = append(commands, m.Init())
-		}
-	}
-
+	commands = append(commands, c.help.Init())
 	return tea.Batch(commands...)
 }
 
-func (c Subcommand) View() string {
+func (c create) View() string {
 	if c.displayHelp == true {
-		return docStyle.Render(c.help.View())
+		return c.help.View()
 	}
-	return docStyle.Render(c.menu.View())
+	return c.menu.View()
 }
 
-func (c Subcommand) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (c create) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	var commands = []tea.Cmd{}
 	switch msg := msg.(type) {
 
 	case tea.KeyMsg:
 		switch keypress := msg.String(); keypress {
-		case "m":
+		case "H":
 			c.displayHelp = true
 		}
-	}
 
+	case tea.WindowSizeMsg:
+		if !c.ready {
+			c.ready = true
+		}
+		c.menu.SetSize(windowSize(msg))
+	}
 	var cmd tea.Cmd
+	// Update the menu
 	c.menu, cmd = c.menu.Update(msg)
+	commands = append(commands, cmd)
+
+	// Update the help
+	c.help, cmd = c.help.Update(msg)
+	commands = append(commands, cmd)
 	return c, cmd
 }
 
