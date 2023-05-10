@@ -38,10 +38,16 @@ func taskFetchSources() pplnv1beta1.PipelineTask {
 }
 
 func taskBuildpacks(runAfter []string) pplnv1beta1.PipelineTask {
+	var taskKind = pplnv1beta1.NamespacedTaskKind
+	if openshift.IsOpenShift() {
+		taskKind = pplnv1beta1.ClusterTaskKind
+	}
+
 	return pplnv1beta1.PipelineTask{
 		Name: taskNameBuild,
 		TaskRef: &pplnv1beta1.TaskRef{
 			Name: "func-buildpacks",
+			Kind: taskKind,
 		},
 		RunAfter: runAfter,
 		Workspaces: []pplnv1beta1.WorkspacePipelineTaskBinding{
@@ -71,6 +77,11 @@ func taskBuildpacks(runAfter []string) pplnv1beta1.PipelineTask {
 
 }
 func taskS2iBuild(runAfter []string) pplnv1beta1.PipelineTask {
+	var taskKind = pplnv1beta1.NamespacedTaskKind
+	if openshift.IsOpenShift() {
+		taskKind = pplnv1beta1.ClusterTaskKind
+	}
+
 	params := []pplnv1beta1.Param{
 		{Name: "IMAGE", Value: *pplnv1beta1.NewArrayOrString("$(params.imageName)")},
 		{Name: "REGISTRY", Value: *pplnv1beta1.NewArrayOrString("$(params.registry)")},
@@ -86,6 +97,7 @@ func taskS2iBuild(runAfter []string) pplnv1beta1.PipelineTask {
 		Name: taskNameBuild,
 		TaskRef: &pplnv1beta1.TaskRef{
 			Name: "func-s2i",
+			Kind: taskKind,
 		},
 		RunAfter: runAfter,
 		Workspaces: []pplnv1beta1.WorkspacePipelineTaskBinding{
